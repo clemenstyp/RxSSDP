@@ -28,8 +28,11 @@ class SSDPMessageParser {
         
         
         var message = [String: String]()
-        while self.scanner.scanUpTo(":", into: &keyBuffer) && !self.scanner.isAtEnd {
+        while self.scanner.scanUpTo(":", into: &keyBuffer) {
             self.advancePastColon()
+            if self.scanner.isAtEnd{
+                break;
+            }
             
             let unicodeScalars = self.scanner.string.unicodeScalars
             let index = unicodeScalars.index(unicodeScalars.startIndex, offsetBy: self.scanner.scanLocation)
